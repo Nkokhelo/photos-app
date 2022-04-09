@@ -8,7 +8,7 @@ export declare interface Photo {
   id : string;
   description: string;
   urls : {
-    full : string
+    small : string
   };
 }
 

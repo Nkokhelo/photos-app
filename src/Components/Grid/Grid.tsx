@@ -33,16 +33,19 @@ function Grid({ photos, sideBarActive }: gridProps) {
   return (
     <div className={`gridComponent ${sideBarActive? 'inactive':''}`}>
       <div className="grid" ref={gridEl}>
-        {photos.concat(...photos, ...photos, ...photos).map((photo, index) => (
-         <LazyLoadImage 
-          effect="blur"
-          key={index}
-          src={photo.urls.full}
-          alt={photo.description}
-          width="100"
-          height="100"
-          />
-        ))}
+        {photos.map((photo, index) => {
+          return (
+            <LazyLoadImage 
+             effect="blur"
+             key={index}
+             src={photo.urls.small}
+             alt={photo.description}
+             width="100%"
+             height="100%"
+             placeholder={<h1>Loading..</h1>}
+             />
+           )
+        })}
       </div>
 
       <div className="buttons">

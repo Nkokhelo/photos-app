@@ -22,27 +22,24 @@ function App() {
         const topicsArr = await data.json();
         setTopics(topicsArr);
         setActiveTopicId(topicsArr[0].id)
+        fetchPhotos(topicsArr[0].id);
       } catch(e) {
-        console.log(e);
+        console.error(e);
       }
     };
 
     fetchTopics();
-    fetchPhotos();
-
   },[]);
 
 
 
-  const fetchPhotos = async () => {
+  const fetchPhotos = async (topicId:string) => {
     try {
-      const data = await fetch(`https://api.unsplash.com/topics/${activeTopicId}`, { headers: authHeader });
-      let photosArr = await data.json();
-      photosArr = photosArr.map((photoData:any) => photoData.cover_photo)
-      setPhotos(photosArr);
-      console.log(`fetchPhotos -> photos`, photos)
+      const data = await fetch(`https://api.unsplash.com/topics/${topicId}/photos`, { headers: authHeader });
+      const topicData = await data.json();
+      setPhotos(topicData);
     } catch(e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
@@ -50,13 +47,15 @@ function App() {
     setSideBarActive(!sideBarActive);
   }
 
-  // if(photos.length == 0 || topics.length == 0) {
-  //   <ClipLoader/>
-  // }
+  const setTopic = (topicId:any) => {
+    setActiveTopicId(topicId)
+    fetchPhotos(topicId);
+  }
+
   return (
     <div className="App">
       <Header toggleMenu={toggleSideBar}/>
-      <SideBar topics = {topics} sideBarActive={sideBarActive}/>
+      <SideBar topics = {topics} sideBarActive={sideBarActive} activeTopicId={activeTopicId} selectTopic={setTopic} />
       <Grid photos = {photos} sideBarActive={sideBarActive}/>
     </div>
   );

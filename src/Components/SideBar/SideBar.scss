@@ -1,14 +1,28 @@
 .sidebar {
   width: var(--sb-width);
   height: 100vh;
-  background: red;
   position: absolute;
   transform: translateX(calc(-1 * var(--sb-width)));
   transition: all ease-in-out .5s;
 
   &.active {
     transform: translateX(0px);
-    
+  }
+
+  ul {
+    padding-left: 0;
+    li {
+      cursor: pointer;
+      list-style: none;
+      padding: 3%;
+      padding-left: 30px;
+      transition: all ease-in-out .3s;
+      &:hover, &.active  {
+        background-color: rgb(35, 35, 35);
+        color: white;
+        font-weight: 700;
+      }
+    }
   }
 }
 

@@ -2,6 +2,8 @@ import { Photo, Topic } from "./interfaces"
 
 export type sideBarProps = {
   topics : Topic[],
+  activeTopicId: string,
+  selectTopic:any
   sideBarActive : boolean
 }
 
