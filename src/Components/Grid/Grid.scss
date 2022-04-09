@@ -1,0 +1,58 @@
+.wrapper {
+  display: flex;
+  height: 97vh;
+  background: blue;
+  padding: 30px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: center;
+    background: rgba(0,0,0,0.3);
+    position: absolute;
+    width: 97vw;
+    height: 90%;
+    button {
+      width: 5rem;
+      height: 5rem;
+      border-radius: 50%;
+      border: none;
+    }
+    // .prev{
+    // }
+    
+    // .next{
+    // }
+    
+  }
+  
+
+  &::-webkit-scrollbar{
+    visibility: hidden;
+    width: 0;
+    height: 0;
+  }
+  .grid {
+    scroll-snap-type: x mandatory;
+    display: grid;
+    gap: 20px;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, minmax(400px, 1fr));
+    grid-auto-columns: 20%;
+
+    div {
+      scroll-snap-align: start;
+      border: transparent 3px solid;
+      &:focus {
+        border: red 3px solid;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }  
+    }
+  }
+}
