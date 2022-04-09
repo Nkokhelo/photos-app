@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;700&display=swap');
+:root {
+  --sb-width: max(20vw, 300px);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont,'Lato', 'Segoe UI', 'Roboto', 'Oxygen',
@@ -25,3 +29,5 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+

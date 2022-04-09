@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import "./App.scss";
+// import { css } from "@emotion/react";
 import Grid from "./Components/Grid/Grid";
 import Header from "./Components/Header/Header";
 import SideBar from "./Components/SideBar/SideBar";
 import { Photo, Topic } from "./Utils/interfaces";
 import { authHeader } from "./Utils/utils";
+import ClipLoader from "react-spinners/ClipLoader";
 
 function App() {
 
   const [topics, setTopics] = useState<Topic[]>([]);
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [activeTopicId, setActiveTopicId] = useState<string>("");
+  const [sideBarActive, setSideBarActive] = useState<boolean>(false);
   
   useEffect(() => {
     const fetchTopics = async () => {
@@ -29,6 +32,8 @@ function App() {
 
   },[]);
 
+
+
   const fetchPhotos = async () => {
     try {
       const data = await fetch(`https://api.unsplash.com/topics/${activeTopicId}`, { headers: authHeader });
@@ -41,11 +46,18 @@ function App() {
     }
   };
 
+  const toggleSideBar = () => {
+    setSideBarActive(!sideBarActive);
+  }
+
+  // if(photos.length == 0 || topics.length == 0) {
+  //   <ClipLoader/>
+  // }
   return (
     <div className="App">
-      <Header />
-      <SideBar topics = {topics} />
-      <Grid photos = {photos}/>
+      <Header toggleMenu={toggleSideBar}/>
+      <SideBar topics = {topics} sideBarActive={sideBarActive}/>
+      <Grid photos = {photos} sideBarActive={sideBarActive}/>
     </div>
   );
 }

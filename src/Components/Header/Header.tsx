@@ -1,17 +1,11 @@
 import "./Header.scss";
 import { CgMenuLeft } from "react-icons/cg";
-function Header() {
+function Header( {toggleMenu}:any) {
+
+
   return (
     <div className="header">
-        <label className="menuLabel" htmlFor="togglerCheckBox">
-        <input
-            type="checkbox"
-            title="togglerCheck"
-            name="togglerCheckBox"
-            id="togglerCheckBox"   
-          />
-          <CgMenuLeft className="menuIcon"/>
-        </label>
+        <CgMenuLeft className="menuIcon" onClick={toggleMenu}/>
         <span className="headerText">Unsplash Photos</span>
     </div>
   );

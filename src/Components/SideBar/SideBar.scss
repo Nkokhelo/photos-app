@@ -1,7 +1,17 @@
 .sidebar {
-  width: max(20vw, 300px);
+  width: var(--sb-width);
   height: 100vh;
   background: red;
   position: absolute;
-  transform: translateX(-600px);
+  transform: translateX(calc(-1 * var(--sb-width)));
+  transition: all ease-in-out .5s;
+
+  &.active {
+    transform: translateX(0px);
+    
+  }
+}
+
+.header #togglerCheckBox:checked ~ .sidebar {
+  transform: translate(0px);
 }

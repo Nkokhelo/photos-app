@@ -1,9 +1,11 @@
 import { Photo, Topic } from "./interfaces"
 
 export type sideBarProps = {
-  topics : Topic[]
+  topics : Topic[],
+  sideBarActive : boolean
 }
 
 export type gridProps = {
-  photos : Photo[]
+  photos : Photo[],
+  sideBarActive: boolean;
 }
