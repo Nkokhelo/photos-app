@@ -1,14 +1,34 @@
 import "./Grid.scss";
-import { gridProps } from "../../Utils/types";
-import { useRef } from "react";
+import { gridProps } from "../../Services/types";
+import { useEffect, useRef } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { CgArrowRight, CgArrowLeft } from "react-icons/cg";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import HashLoader from "react-spinners/HashLoader";
+import { authHeader } from "../../Services/utils";
+import { Type } from "../../Services/interfaces";
 
 
-function Grid({ photos, sideBarActive }: gridProps) {
+function Grid({ photos, sideBarActive, topicId, dispatch}: gridProps) {
   const gridEl = useRef<HTMLDivElement>(null);
+
+  
+  useEffect(() => {
+    if(topicId === '' || !topicId) return;
+    const fetchPhotos = async (topicId?:string) => {
+      try {
+        const data = await fetch(`https://api.unsplash.com/topics/${topicId}/photos`, { headers: authHeader });
+        const photoArr = await data.json();
+        dispatch({ type: Type.updatePhotos, stateData: {photos: photoArr} })
+      } catch(e) {
+        console.error(e);
+      }
+    };
+  
+    fetchPhotos(topicId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[topicId]);
+
 
   function next() {
     gridEl.current!.scrollLeft +=getGridDivWidth()
@@ -23,7 +43,7 @@ function Grid({ photos, sideBarActive }: gridProps) {
     return gridItems.offsetWidth+15;
   }
 
-  if(photos.length === 0) {
+  if(!photos || photos.length === 0) {
     return (
       <div className={`gridComponent ${sideBarActive? 'inactive':''} loading`}>
           <HashLoader/>

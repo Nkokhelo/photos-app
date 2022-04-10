@@ -1,3 +1,7 @@
 {
-  "jest.autoRun": "off"
+  "eslint.rules.customizations": [
+    {
+      "react-hooks/exhaustive-deps": 0
+    }
+  ]
 }
